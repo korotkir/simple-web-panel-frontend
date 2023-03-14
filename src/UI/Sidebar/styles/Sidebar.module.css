@@ -1,0 +1,95 @@
+.Sidebar {
+  background-color: #F1F1F1;
+  height: 100vh;
+  min-width: 20%;
+  max-width: 250px;
+}
+
+.Logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 30px;
+}
+
+.Nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 90vh;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.NavList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 65px;
+  list-style-type: none;
+  margin-left: 40px;
+}
+
+.NavItem {
+  color: #343434;
+  width: 150px;
+  padding-left: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 48px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.NavItemActive {
+  font-family: Roboto-Bold;
+  background-color: #0832DE;
+  color: #FFF;
+  border-radius: 10px;
+  width: 150px;
+  padding-left: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 48px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.NavTitle {
+  padding-left: 15px;
+}
+
+.SignOut {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 140px;
+  height: 48px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 52px;
+}
+/*# sourceMappingURL=Sidebar.module.css.map */

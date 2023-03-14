@@ -1,0 +1,58 @@
+@mixin nav-item
+  width: 150px
+  padding-left: 12px
+  display: flex
+  align-items: center
+  height: 48px
+  font-size: 16px
+  cursor: pointer
+  text-decoration: none
+
+  
+.Sidebar
+  background-color: #F1F1F1;
+  height: 100vh
+  min-width: 20%
+  max-width: 250px
+
+.Logo
+  display: flex
+  justify-content: center
+  padding-top: 30px
+  
+.Nav
+  display: flex
+  flex-direction: column
+  height: 90vh
+  justify-content: space-between
+  
+.NavList
+  display: flex
+  flex-direction: column
+  padding-top: 65px
+  list-style-type: none
+  margin-left: 40px
+  
+.NavItem
+  color: #343434
+  @include nav-item
+  
+.NavItemActive
+  font-family: Roboto-Bold
+  background-color: #0832DE
+  color: #FFF
+  border-radius: 10px
+  @include nav-item
+
+.NavTitle
+  padding-left: 15px
+
+.SignOut
+  display: flex
+  width: 140px
+  height: 48px
+  align-items: center
+  padding-left: 52px
+  
+
+
