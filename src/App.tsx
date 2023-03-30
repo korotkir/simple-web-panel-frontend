@@ -3,12 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './Styles/main/Main.css';
 import Sidebar from './UI/Sidebar/Sidebar';
-import AddCategory from './pages/AddCategory';
+import AddCategory from './pages/AddCategory/AddCategory';
 import General from './pages/General';
 import News from './pages/News';
 import Posts from './pages/Posts';
 import Settings from './pages/Settings';
-
 
 function App() {
   return (
