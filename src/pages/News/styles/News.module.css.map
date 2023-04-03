@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAC;EACT,KAAK,EAAE,IAAI;EACX,WAAW,EAAE,KAAK;CAAG;;AAEvB,AAAA,WAAW,CAAC;EACV,MAAM,EAAE,KAAK;EACb,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,eAAe,EAAE,aAAa;CAAG;;AAEnC,AAAA,UAAU,CAAC;EACT,OAAO,EAAE,SAAS;CAAG",
+    "sources": [
+        "News.module.sass"
+    ],
+    "names": [],
+    "file": "News.module.css"
+}

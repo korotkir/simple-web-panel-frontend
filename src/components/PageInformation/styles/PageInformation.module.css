@@ -1,0 +1,38 @@
+.PageInformation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.RecordsCount, .CategoriesCount {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Separator {
+  border-right: 1px solid black;
+}
+
+.Records, .Categories {
+  font-size: 100px;
+}
+
+.RecordsTitle, .CategoriesTitle {
+  font-size: 18px;
+  color: gray;
+}
+/*# sourceMappingURL=PageInformation.module.css.map */

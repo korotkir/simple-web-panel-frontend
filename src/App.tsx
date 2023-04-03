@@ -4,15 +4,15 @@ import logo from './logo.svg';
 import './Styles/main/Main.css';
 import Sidebar from './UI/Sidebar/Sidebar';
 import AddCategory from './pages/AddCategory/AddCategory';
-import General from './pages/General';
-import News from './pages/News';
+import General from './pages/General/General';
+import News from './pages/News/News';
 import Posts from './pages/Posts';
 import Settings from './pages/Settings';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="container" style={{display: 'flex'}}>
+      <div className="container" style={{display: 'flex', flex: '1 5',}}>
         <Sidebar />
         <Routes>
           <Route path="/" element={<General />} />
@@ -21,7 +21,7 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="new" element={<AddCategory />} />
         </Routes>
-      </div>
+        </div>
     </BrowserRouter>
   );
 }

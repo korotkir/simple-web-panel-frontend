@@ -1,3 +1,14 @@
+.Container {
+  width: 100%;
+  max-height: 100%;
+  overflow-y: hidden;
+  margin-left: 300px;
+}
+
+.Forms {
+  width: 70%;
+}
+
 .PageTitle {
   padding: 40px 25px;
 }
@@ -37,7 +48,7 @@
 }
 
 .Fields {
-  height: 400px;
+  min-height: 300px;
 }
 
 label {
@@ -102,7 +113,7 @@ select {
 .BigButton {
   width: 160px;
   height: 50px;
-  margin: 50px auto;
+  margin: 20px auto;
   background-color: #357ebd;
   color: white;
   border: none;

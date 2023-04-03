@@ -1,0 +1,30 @@
+@mixin nav-item
+  width: 180px
+  padding-left: 12px
+  display: flex
+  align-items: center
+  height: 48px
+  font-size: 16px
+  cursor: pointer
+  text-decoration: none
+  
+.NavList
+  display: flex
+  flex-direction: column
+  padding-top: 65px
+  list-style-type: none
+  margin-left: 40px
+  
+.NavItem
+  color: #343434
+  @include nav-item
+  
+.NavItemActive
+  font-family: Roboto-Bold
+  background-color: #357ebd
+  color: #FFF
+  border-radius: 10px
+  @include nav-item
+
+.NavTitle
+  padding-left: 15px
