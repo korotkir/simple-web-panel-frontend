@@ -22,7 +22,7 @@ export default function NavList(props: {pages: Array<any>}) {
         {
           props.pages.map((el,key) => {
             return (
-              <li>
+              <li key={key}>
                 <NavLink 
                   to={el.link}
                   className={({isActive}) => isActive ? styles.NavItemActive : styles.NavItem}
