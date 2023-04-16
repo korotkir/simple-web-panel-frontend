@@ -52,10 +52,15 @@ function News() {
     axios.get('http://80.87.110.126:3000/posts')
       .then((res) => {
 
-        setColumns(Object.keys(res.data[0]))
+        setColumns(Object.keys(res.data[0]).filter(el => el != '_id'))
 
-        setData(res.data)
-        
+        const filterData = res.data.map(element => {
+          delete element["_id"]
+          return element
+        })
+
+        setData(filterData)
+
         setLoading(false)
       })
       .catch(err => console.log(err))
@@ -67,7 +72,7 @@ function News() {
       <div className={styles.Categories}>
         <div className={styles.TemplateHeader}>
           <h1 className={styles.PageTitle}>Новости</h1>
-          <PageInformation records={20} categories={5} />
+          <PageInformation records={data.length} categories={0} />
         </div>  
         <div className={styles.Table}>
           {
