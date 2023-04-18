@@ -10,9 +10,44 @@ interface FieldState extends Field {
   error: boolean
 }
 
+interface FormValues {
+  name: string,
+  desc: string,
+  field1: string,
+  field2: string,
+  field3: string,
+  field4: string,
+  field5: string,
+  field6: string,
+}
+
 function AddCategory() {
   const [fields, setFields] = useState<FieldState[]>([{id: 1, error: true}])
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
+  const [formData, setFormData] = useState<FormValues>({
+    name: '',
+    desc: '',
+    field1: '',
+    field2: '',
+    field3: '',
+    field4: '',
+    field5: '',
+    field6: '',
+  })
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target
+    console.log(event.target.name)
+    // Создать условия для
+    const title = name === 'name' || name === 'desc' ? name : 'field' + name
+    setFormData((prevData) => ({ ...prevData, [title]: value}))
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    // Выводим значения формы
+    console.log(formData)
+  }
 
   const handleAddField = (event:React.MouseEvent) => {
     event.preventDefault()
@@ -44,37 +79,34 @@ function AddCategory() {
     }
   }
 
-  const handleCreatePage = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const hasError = fields.some(field => field.error !== false);
-
-    if (!hasError) {
-      // Отправить форму
-      console.log('Форма отправлена!');
-    }
-  }
-
   const isButtonDisabled = fields.some(field => field.error !== false);
 
   return (
     <div className={styles.Container}>
       <div className={styles.Forms}>  
         <h1 className={styles.PageTitle}>Добавить страницу</h1>
-        <form className={styles.PageForm}>
+        <form className={styles.PageForm} onSubmit={handleSubmit}>
           <label>
             <span className={styles.LabelTitle}>Название страницы:</span>
             <input 
               className={styles.Input} 
               type="text" 
+              name='name'
               placeholder='Введите название...' 
+              value={formData.name}
+              onChange={handleInputChange}
               />
             <div style={{width: '160px'}}/>
             <div style={{width: '24px'}}/>
           </label>
           <label>
             <span className={styles.LabelTitle}>Описание страницы:</span>
-            <textarea  placeholder='Введите описание...'/>
+            <textarea  
+              placeholder='Введите описание...'
+              name='desc'
+              value={formData.desc}
+              onChange={handleInputChange}
+            />
             <div style={{width: '160px'}}/>
             <div style={{width: '24px'}}/>
           </label>
@@ -91,7 +123,7 @@ function AddCategory() {
           </div>
           
           <div className={styles.Fields}>
-            {fields.map((field) => (
+            {fields.map((field, key) => (
                 <label key={field.id}>
                   <span className={styles.LabelTitle}>Имя колонки {field.id}:<i className={field.error ? styles.SpanError : ''}> *</i></span>
                   <input  
@@ -100,8 +132,10 @@ function AddCategory() {
                     placeholder='Введите имя колонки...' 
                     name={field.id.toString()}
                     onBlur={handleBlurField}
+                    value={formData[`field${(field.id).toString}` as keyof FormValues]}
+                    onChange={handleInputChange}
                   />
-                  <select
+                  {/* <select
                     name={field.id.toString()}
                     //onBlur={handleBlurField} 
                     id="">
@@ -109,7 +143,7 @@ function AddCategory() {
                     <option value="image">Изображение</option>
                     <option value="select">Выбор</option>
                     <option value="category">Категория</option>
-                  </select>
+                  </select> */}
                   {
                     field.id != 1 ?
                       <div className={styles.CloseIcon} onClick={() => handleRemoveField(field.id)}>
@@ -124,7 +158,7 @@ function AddCategory() {
           <button
             className={styles.BigButton}
             disabled={isButtonDisabled}
-            // type="submit"
+            type="submit"
           >Создать страницу</button>
         </form>
       </div>
