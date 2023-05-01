@@ -3,8 +3,8 @@ import styles from './styles/News.module.css'
 import PageInformation from '../../components/PageInformation/PageInformation'
 import MUIDataTable, {MUIDataTableOptions} from "mui-datatables";
 import axios from 'axios';
-import { useEffect, useState, CSSProperties } from 'react';
-import BeatLoader from "react-spinners/BeatLoader";
+import { useEffect, useState } from 'react';
+import Loader from '.././../UI/Loader/Loader'
 
 const options: MUIDataTableOptions = {
   filterType: 'checkbox',
@@ -13,13 +13,6 @@ const options: MUIDataTableOptions = {
   print: false,
   viewColumns: false,
   tableBodyHeight: '50%',
-};
-
-const override: CSSProperties = {
-  display: "flex",
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100vh'
 };
 
 function News() {
@@ -45,17 +38,6 @@ function News() {
       .catch(err => console.log(err))
 
   }, [])
-
-  const Loader = () => (
-      <BeatLoader
-        color={'#357ebd'}
-        loading={true}
-        cssOverride={override}
-        size={60}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-  )
 
   const DataTable = () => (
     <div className={styles.Categories}>

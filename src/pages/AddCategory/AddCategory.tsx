@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { CloseOutline } from 'react-ionicons'
 import styles from './styles/AddCategory.module.css'
+import axios from 'axios';
+import Loader from '../../UI/Loader/Loader'
+import { useNavigate } from 'react-router-dom';
 
 interface Field {
   id: number
@@ -22,8 +25,10 @@ interface FormValues {
 }
 
 function AddCategory() {
+  const [loading, setLoading] = useState(false)
   const [fields, setFields] = useState<FieldState[]>([{id: 1, error: true}])
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const fieldTypeOptions = [
     {value: 'text', label: 'Текст'},
@@ -87,8 +92,22 @@ function AddCategory() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    // Необходимо найти библиотеку, преобразовывающую кириллицу в транслитерацию
+    // https://www.npmjs.com/package/react-transliterate
+    
     // Выводим значения формы
     console.log(formData)
+
+    // Делаем пост запрос
+
+    axios.post('http://80.87.110.126:3000/addCollection', JSON.stringify(formData))
+      .then((res) => {console.log(res)})
+      .catch((err) => {console.error(err)})
+
+    setLoading(true)
+
+    // Тут должно быть значение равное name из объекта formData
+    navigate('/news')
   }
 
   const handleAddField = (event:React.MouseEvent) => {
@@ -123,90 +142,94 @@ function AddCategory() {
 
   const isButtonDisabled = fields.some(field => field.error !== false);
 
-  return (
-    <div className={styles.Container}>
-      <div className={styles.Forms}>  
-        <h1 className={styles.PageTitle}>Добавить страницу</h1>
-        <form className={styles.PageForm} onSubmit={handleSubmit}>
-          <label>
-            <span className={styles.LabelTitle}>Название страницы:</span>
-            <input 
-              className={styles.Input} 
-              type="text" 
-              name='name'
-              placeholder='Введите название...' 
-              value={formData.name}
-              onChange={handleInputChange}
+  return (      
+       <div className={styles.Container}>
+          {
+             loading ? <Loader /> :
+             <div className={styles.Forms}>  
+          <h1 className={styles.PageTitle}>Добавить страницу</h1>
+          <form className={styles.PageForm} onSubmit={handleSubmit}>
+            <label>
+              <span className={styles.LabelTitle}>Название страницы:</span>
+              <input 
+                className={styles.Input} 
+                type="text" 
+                name='name'
+                placeholder='Введите название...' 
+                value={formData.name}
+                onChange={handleInputChange}
               />
-            <div style={{width: '160px'}}/>
-            <div style={{width: '24px'}}/>
-          </label>
-          <label>
-            <span className={styles.LabelTitle}>Описание страницы:</span>
-            <textarea  
-              placeholder='Введите описание...'
-              name='desc'
-              value={formData.desc}
-              onChange={handleInputChange}
-            />
-            <div style={{width: '160px'}}/>
-            <div style={{width: '24px'}}/>
-          </label>
+             <div style={{width: '160px'}}/>
+             <div style={{width: '24px'}}/>
+           </label>
+           <label>
+             <span className={styles.LabelTitle}>Описание страницы:</span>
+             <textarea  
+               placeholder='Введите описание...'
+               name='desc'
+               value={formData.desc}
+               onChange={handleInputChange}
+             />
+             <div style={{width: '160px'}}/>
+             <div style={{width: '24px'}}/>
+           </label>
 
-          <div className={styles.LabelColumns}>
-            <h2 className={styles.LabelColumnsTitle}>Поля таблицы</h2>
-            <button 
-              className={styles.SmallButton}
-              onClick={handleAddField}
-              disabled={fields.length > 5 ? true : false}
-              >
-                Добавить поле
-            </button>
-          </div>
-          
-          <div className={styles.Fields}>
-            {fields.map((field, key) => (
-                <label key={field.id}>
-                  <span className={styles.LabelTitle}>Имя колонки {field.id}:<i className={field.error ? styles.SpanError : ''}> *</i></span>
-                  <input  
-                    type="text" 
-                    className={styles.Input} 
-                    placeholder='Введите имя колонки...' 
-                    name={field.id.toString()}
-                    onBlur={handleBlurField}
-                    value={formData[`field${(field.id).toString}` as keyof FormValues]}
-                    onChange={handleInputChange}
-                  />
-                  <select
-                    name={field.id.toString() + '_type'}
-                    placeholder='Введите имя колонки...' 
-                    defaultValue={'text'}
-                    onChange={handleInputChange}
-                  >
-                    <option value="text">Текст</option>
-                    <option value="image">Изображение (ссылка)</option>
-                    <option value="select">Выбор</option>
-                    <option value="category">Категория</option>
-                  </select>
-                  {
-                    field.id != 1 ?
-                      <div className={styles.CloseIcon} onClick={() => handleRemoveField(field.id)}>
-                        <CloseOutline width="24px" height="24px" />
-                      </div> : <div style={{width: '24px'}} />
-                  }
-                  
-              </label>
-            ))}
-          </div>
+           <div className={styles.LabelColumns}>
+             <h2 className={styles.LabelColumnsTitle}>Поля таблицы</h2>
+             <button 
+               className={styles.SmallButton}
+               onClick={handleAddField}
+               disabled={fields.length > 5 ? true : false}
+               >
+                 Добавить поле
+             </button>
+           </div>
+           
+           <div className={styles.Fields}>
+             {fields.map((field, key) => (
+                 <label key={field.id}>
+                   <span className={styles.LabelTitle}>Имя колонки {field.id}:<i className={field.error ? styles.SpanError : ''}> *</i></span>
+                   <input  
+                     type="text" 
+                     className={styles.Input} 
+                     placeholder='Введите имя колонки...' 
+                     name={field.id.toString()}
+                     onBlur={handleBlurField}
+                     value={formData[`field${(field.id).toString}` as keyof FormValues]}
+                     onChange={handleInputChange}
+                   />
+                   <select
+                     name={field.id.toString() + '_type'}
+                     placeholder='Введите имя колонки...' 
+                     defaultValue={'text'}
+                     onChange={handleInputChange}
+                   >
+                     <option value="text">Текст</option>
+                     <option value="image">Изображение (ссылка)</option>
+                     <option value="select">Выбор</option>
+                     <option value="category">Категория</option>
+                   </select>
+                   {
+                     field.id != 1 ?
+                       <div className={styles.CloseIcon} onClick={() => handleRemoveField(field.id)}>
+                         <CloseOutline width="24px" height="24px" />
+                       </div> : <div style={{width: '24px'}} />
+                   }
+                   
+               </label>
+             ))}
+           </div>
 
-          <button
-            className={styles.BigButton}
-            disabled={isButtonDisabled}
-            type="submit"
-          >Создать страницу</button>
-        </form>
-      </div>
-    </div>
+           <button
+             className={styles.BigButton}
+             disabled={isButtonDisabled}
+             type="submit"
+           >Создать страницу</button>
+         </form>
+       </div>
+
+          }
+     </div> 
   )
 }
 
