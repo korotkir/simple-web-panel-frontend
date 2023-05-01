@@ -66,7 +66,7 @@ function AddCategory() {
 
         setFormData((prevData:any) => ({
           ...prevData,
-          [fieldName]: { ...prevData[fieldName], name: value },
+          [fieldName]: { ...prevData[fieldName], name: value, type: 'text' },
         }));
 
       }
