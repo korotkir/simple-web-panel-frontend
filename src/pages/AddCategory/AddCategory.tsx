@@ -10,41 +10,83 @@ interface FieldState extends Field {
   error: boolean
 }
 
+interface FieldData {
+  name: string,
+  type: string
+}
+
 interface FormValues {
   name: string,
   desc: string,
-  field1: string,
-  field2: string,
-  field3: string,
-  field4: string,
-  field5: string,
-  field6: string,
+  field1: FieldData | any,
 }
 
 function AddCategory() {
   const [fields, setFields] = useState<FieldState[]>([{id: 1, error: true}])
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
+
+  const fieldTypeOptions = [
+    {value: 'text', label: 'Текст'},
+    {value: 'image', label: 'Изображение'},
+    {value: 'select', label: 'Выбор'},
+    {value: 'category', label: 'Категория'},
+  ]
+
+
   const [formData, setFormData] = useState<FormValues>({
     name: '',
     desc: '',
-    field1: '',
-    field2: '',
-    field3: '',
-    field4: '',
-    field5: '',
-    field6: '',
+    field1: {name: '', type: 'text'},
   })
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target
-    console.log(event.target.name)
-    // Создать условия для
-    const title = name === 'name' || name === 'desc' ? name : 'field' + name
-    setFormData((prevData) => ({ ...prevData, [title]: value}))
+    let { name, value } = event.target
+
+    if (name === 'name' || name === 'desc') {
+      setFormData((prevData) => ({ ...prevData, [name]: value}))
+    } else {
+      // Добавляем field в объект, если поле не первое
+
+      const field = 'field' + name
+      let fieldId:string;
+      let fieldName:string;
+
+      if (field.indexOf('_type') !== -1) {
+        fieldId = name[0];
+        fieldName = `field${fieldId}`;
+
+        setFormData((prevData:any) => ({
+          ...prevData,
+          [fieldName]: { ...prevData[fieldName], type: value },
+        }));
+
+      } else {
+        fieldId = field.substring(5);
+        fieldName = `field${fieldId}`;
+
+        setFormData((prevData:any) => ({
+          ...prevData,
+          [fieldName]: { ...prevData[fieldName], name: value },
+        }));
+
+      }
+    }
   }
+
+  const handleFieldTypeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    fieldId: number
+  ) => {
+    const fieldName = `field${fieldId}`;
+    setFormData((prevData:any) => ({
+      ...prevData,
+      [fieldName]: { ...prevData[fieldName], type: event.target.value },
+    }));
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
     // Выводим значения формы
     console.log(formData)
   }
@@ -135,15 +177,17 @@ function AddCategory() {
                     value={formData[`field${(field.id).toString}` as keyof FormValues]}
                     onChange={handleInputChange}
                   />
-                  {/* <select
-                    name={field.id.toString()}
-                    //onBlur={handleBlurField} 
-                    id="">
+                  <select
+                    name={field.id.toString() + '_type'}
+                    placeholder='Введите имя колонки...' 
+                    defaultValue={'text'}
+                    onChange={handleInputChange}
+                  >
                     <option value="text">Текст</option>
-                    <option value="image">Изображение</option>
+                    <option value="image">Изображение (ссылка)</option>
                     <option value="select">Выбор</option>
                     <option value="category">Категория</option>
-                  </select> */}
+                  </select>
                   {
                     field.id != 1 ?
                       <div className={styles.CloseIcon} onClick={() => handleRemoveField(field.id)}>
