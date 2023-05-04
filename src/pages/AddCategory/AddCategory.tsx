@@ -4,6 +4,7 @@ import styles from './styles/AddCategory.module.css'
 import axios from 'axios';
 import Loader from '../../UI/Loader/Loader'
 import { useNavigate } from 'react-router-dom';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
 
 interface Field {
   id: number
@@ -92,6 +93,8 @@ function AddCategory() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    const cyrillicToTranslit = new (CyrillicToTranslit as any)();
+
     // Необходимо найти библиотеку, преобразовывающую кириллицу в транслитерацию
     // https://www.npmjs.com/package/react-transliterate
     
@@ -100,7 +103,11 @@ function AddCategory() {
 
     // Делаем пост запрос
 
-    axios.post('http://80.87.110.126:3000/addCollection', JSON.stringify(formData))
+    axios.post(
+      'http://80.87.110.126:3000/addCollection', 
+      {...formData, transliterationName: cyrillicToTranslit.transform(formData.name, '_').toLowerCase()},
+      {headers: {'Content-Type': 'application/json'}}
+    )
       .then((res) => {console.log(res)})
       .catch((err) => {console.error(err)})
 

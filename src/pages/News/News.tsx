@@ -19,19 +19,17 @@ function News() {
   const [loading, setLoading] = useState(true)
   let [columns, setColumns] = useState<any>({})
   let [data, setData] = useState([])
+  let [tableName, setTableName] = useState('Без названиея')
+  let [renderData, setRenderData] = useState([])
   
   useEffect(() => {
-    axios.get('http://80.87.110.126:3000/posts')
+    axios.get('http://80.87.110.126:3000/test2')
       .then((res) => {
+        setTableName(res.data[0].collectionName)
 
-        setColumns(Object.keys(res.data[0]).filter(el => el != '_id'))
+        setColumns(res.data[0].columnsNames)
 
-        const filterData = res.data.map((element: any) => {
-          delete element["_id"]
-          return element
-        })
-
-        setData(filterData)
+        setData(res.data)
 
         setLoading(false)
       })
@@ -42,17 +40,16 @@ function News() {
   const DataTable = () => (
     <div className={styles.Categories}>
       <div className={styles.TemplateHeader}>
-          <h1 className={styles.PageTitle}>Новости</h1>
+          <h1 className={styles.PageTitle}>{tableName}</h1>
           <PageInformation records={data.length} categories={0} />
         </div>  
         <div className={styles.Table}>
           <MUIDataTable
               title={""}
               data={
-                data.map((el) => {
-                  return [...Object.values(el)]
-                })
-              }
+                data.map(obj => {
+                  return Object.values(obj).filter((value, index) => index >= 5 && index <= 7);
+              })}
               columns={columns}
               options={options}
             />
