@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 import BigButton from '../../UI/Buttons/BigButton/BigButton';
+import { useDispatch } from 'react-redux';
+import { addCategoryElement } from '../../reducers/componentTransferReducer';
 
 interface Field {
   id: number
@@ -32,6 +34,7 @@ function AddCategory() {
   const [fields, setFields] = useState<FieldState[]>([{id: 1, error: true}])
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const fieldTypeOptions = [
     {value: 'text', label: 'Текст'},
@@ -39,7 +42,6 @@ function AddCategory() {
     {value: 'select', label: 'Выбор'},
     {value: 'category', label: 'Категория'},
   ]
-
 
   const [formData, setFormData] = useState<FormValues>({
     name: '',
@@ -92,33 +94,6 @@ function AddCategory() {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    const cyrillicToTranslit = new (CyrillicToTranslit as any)();
-
-    // Необходимо найти библиотеку, преобразовывающую кириллицу в транслитерацию
-    // https://www.npmjs.com/package/react-transliterate
-    
-    // Выводим значения формы
-    console.log(formData)
-
-    // Делаем пост запрос
-
-    axios.post(
-      'http://80.87.110.126:3000/addCollection', 
-      {...formData, transliterationName: cyrillicToTranslit.transform(formData.name, '_').toLowerCase()},
-      {headers: {'Content-Type': 'application/json'}}
-    )
-      .then((res) => {console.log(res)})
-      .catch((err) => {console.error(err)})
-
-    setLoading(true)
-
-    // Тут должно быть значение равное name из объекта formData
-    navigate('/news')
-  }
-
   const handleAddField = (event:React.MouseEvent) => {
     event.preventDefault()
     setFields([...fields, {id: fields.length + 1, error: true}]);
@@ -147,6 +122,35 @@ function AddCategory() {
         ...fields.slice(fieldIndex + 1)
       ]);
     }
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const cyrillicToTranslit = new (CyrillicToTranslit as any)();
+    
+    axios.post(
+      'http://80.87.110.126:3000/addCollection', 
+      {...formData, transliterationName: cyrillicToTranslit.transform(formData.name, '_').toLowerCase()},
+      {headers: {'Content-Type': 'application/json'}}
+    )
+      .then((res) => {
+        // В случае успеха получаем созданную коллекцию, обновляем навбар
+        // и редиректим
+        console.log(res.data)
+        dispatch(addCategoryElement(res.data))
+        navigate(`/${res.data}`)
+      })
+      .catch((err) => {
+        // Если ошибка отрисовываем заглушку (500) 
+        // или алертим что коллекция с таким именем уже существует
+        console.error(err)
+      })
+
+    setLoading(true)
+
+    // TODO: Тут должно быть значение равное name из объекта formData
+    
   }
 
   const isButtonDisabled = fields.some(field => field.error !== false);

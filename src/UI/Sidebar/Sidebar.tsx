@@ -4,6 +4,7 @@ import styles from './styles/Sidebar.module.css'
 import { useEffect, useState } from 'react'
 import { LogOutOutline } from 'react-ionicons'
 import axios from 'axios';
+import { useSelector } from 'react-redux'
 
 interface MenuElement {
   title: string,
@@ -21,6 +22,8 @@ function Sidebar() {
 
   const [menuElements, setMenuElements] = useState<MenuElement[]>([])
 
+  const categoryList = useSelector((state: any) => state.transfer.categoryList)
+
   useEffect(() => {
     axios.get('http://80.87.110.126:3000/collectionList')
     .then((res) => {
@@ -34,7 +37,7 @@ function Sidebar() {
       setMenuElements(() => [...pages, ...loadData])
     })
     .catch(err => console.log(err))
-  }, [])
+  }, [categoryList])
 
   return (
     <div className={styles.Sidebar}>

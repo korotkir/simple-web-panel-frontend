@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Loader from '../../UI/Loader/Loader'
 import ModalWindow from '../../components/ModalWindow/ModalWindow'
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
+import BigButton from '../../UI/Buttons/BigButton/BigButton';
 
 const options: MUIDataTableOptions = {
   filterType: 'checkbox',
@@ -32,12 +33,15 @@ const options: MUIDataTableOptions = {
 
 function RenderTable(props:any) {
   const [loading, setLoading] = useState(true)
-  let [columns, setColumns] = useState<any>({})
+  let [columns, setColumns] = useState<any>([])
   let [data, setData] = useState([])
   let [tableName, setTableName] = useState('Без названия')
   let [renderData, setRenderData] = useState([])
   let [emptyTable, setEmptyTable] = useState('')
   let [isModal, setModal] = useState(false)
+
+  const [formData, setFormData] = useState({})
+  const [textArea, setTextArea] = useState({})
   
   useEffect(() => {
     axios.post(
@@ -51,8 +55,17 @@ function RenderTable(props:any) {
         setTableName(res.data[0].tableName)
         setColumns(res.data[0].columnsNames)
         setEmptyTable(res.data[0].field1)
+        setFormData({
+          tableName: res.data[0].tableName, 
+          codeName: res.data[0].codeName,
+          description: res.data[0].description,
+          columnsCount: res.data[0].columnsCount,
+          columnsNames: res.data[0].columnsNames,
+        })
         setData(res.data)
         setLoading(false)
+
+        console.log('formData:', formData)
       })
       .catch((err) => {console.error(err)})
 
@@ -66,6 +79,11 @@ function RenderTable(props:any) {
 
   const closeModal = () => {
     setModal(false)
+  }
+
+  const addRecordToDb = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    
   }
 
   const DataTable = () => (
@@ -91,7 +109,29 @@ function RenderTable(props:any) {
   return (
     <div className={styles.Container}>
       { loading ? <Loader /> : <DataTable /> }  
-      <ModalWindow open={isModal} closeModal={() => closeModal()} />
+      <ModalWindow 
+        open={isModal} 
+      >
+        <div className={styles.Header}>
+          <h2>Создать запись</h2>
+          <SmallButton onClick={closeModal} width={"30px"}>X</SmallButton>
+        </div>
+        <form className={styles.Form}>
+          {
+            columns.map((el:any, key:any) => {
+              return (
+                <label key={key}>
+                  <span className={styles.LabelSpan}>
+                    <b>{key + 1}. {el}</b>
+                  </span>
+                  <textarea name={el} value={textArea[`field${key + 1}` as keyof FormValues]} />
+                </label>
+              )
+            })
+          }
+        <BigButton type="submit" onClick={addRecordToDb}>Создать</BigButton>
+        </form>
+      </ModalWindow>
     </div>
   )
 }
