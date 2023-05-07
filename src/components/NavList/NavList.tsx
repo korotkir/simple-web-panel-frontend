@@ -1,6 +1,8 @@
 import { HomeOutline, DocumentOutline, SettingsOutline, AddOutline, LogOutOutline } from 'react-ionicons'
 import { Link, NavLink } from 'react-router-dom'
 import styles from './styles/NavList.module.css'
+import { useEffect, useState } from 'react'
+import axios from 'axios';
 
 export default function NavList(props: {pages: Array<any>}) {
 

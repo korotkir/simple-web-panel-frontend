@@ -25,18 +25,19 @@ connectToDb((err) => {
   }
 })
 
-const collection = 'test2'
-
 // Получение данных 
-app.get(`/${collection}`, (req, res, next) => {
+app.post('/renderTable', urlencodedParser, (req, res, next ) => {
+  const collection = String(req.body.collection).substring(1)
   const posts = []
+
+  console.log(collection)
 
   db
     .collection(collection)
     .find() // cursor - hasNext, next, forEach // 101 element max
-    // .sort({ title: 1 })
     .forEach((post) => posts.push(post))
     .then(() => {
+      console.log('posts: ', posts)
       res
         .status(200)
         .json(posts)
@@ -45,8 +46,41 @@ app.get(`/${collection}`, (req, res, next) => {
       res
         .status(500)
         .json({ error: "Something goes wrong..." + ex })
+    })
+})
+
+//Получаем список коллекций для navBar
+app.get('/collectionList', async (req, res, next) => {
+
+  // Функция возвращает объект {переведенное название: название}
+  const getAllCollectionNames = async () => {
+    const collectionNames = await db.listCollections().toArray()
+    
+    const tableNames = []
+
+    for (const collection of collectionNames) {
+      const collectionName = collection.name;
+      const collectionObj = db.collection(collectionName);
+      const firstDocument = await collectionObj.findOne({}, { projection: { tableName: 1, _id: 0 } });
+      if (firstDocument) {
+        tableNames[collectionName] = firstDocument.tableName;
+      }
     }
-)})
+
+    return tableNames
+
+  }
+
+  // Отправляем на клиент
+  getAllCollectionNames()
+    .then(obj => {
+      console.log(obj)
+      res
+        .status(200)
+        .json(Object.entries(obj).map(([key, value]) => ({ [key]: value })))
+    })
+
+})
 
 //Создание коллекции
 app.post('/addCollection', urlencodedParser, (req, res, next) => {
@@ -82,7 +116,7 @@ app.post('/addCollection', urlencodedParser, (req, res, next) => {
 
   // Добавляем поля в зависимости от columnsCount
   for (let i = 1; i <= columnsCount; i++) {
-    table['field' + i] = 'Тест'
+    table['field' + i] = ''
   }
 
   console.log(table)

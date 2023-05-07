@@ -1,0 +1,47 @@
+.Container {
+  width: 100%;
+  height: 100%;
+  margin-left: 300px;
+}
+
+.Top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 40px 25px;
+}
+
+.SmallButton {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 120px;
+  height: 30px;
+  background-color: #357ebd;
+  color: white;
+  border: none;
+}
+
+.SmallButton:hover {
+  background-color: #2567a1;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.SmallButton:active {
+  background-color: #1a578d;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.SmallButton:disabled {
+  background-color: gray;
+}
+/*# sourceMappingURL=RenderTable.module.css.map */
