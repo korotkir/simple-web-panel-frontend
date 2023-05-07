@@ -5,6 +5,8 @@ import axios from 'axios';
 import Loader from '../../UI/Loader/Loader'
 import { useNavigate } from 'react-router-dom';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
+import BigButton from '../../UI/Buttons/BigButton/BigButton';
 
 interface Field {
   id: number
@@ -183,13 +185,7 @@ function AddCategory() {
 
            <div className={styles.LabelColumns}>
              <h2 className={styles.LabelColumnsTitle}>Поля таблицы</h2>
-             <button 
-               className={styles.SmallButton}
-               onClick={handleAddField}
-               disabled={fields.length > 5 ? true : false}
-               >
-                 Добавить поле
-             </button>
+             <SmallButton onClick={handleAddField} fields={fields}>Добавить поле</SmallButton>
            </div>
            
            <div className={styles.Fields}>
@@ -226,12 +222,7 @@ function AddCategory() {
                </label>
              ))}
            </div>
-
-           <button
-             className={styles.BigButton}
-             disabled={isButtonDisabled}
-             type="submit"
-           >Создать страницу</button>
+           <BigButton disabled={isButtonDisabled} type="submit">Создать страницу</BigButton>
          </form>
        </div>
 

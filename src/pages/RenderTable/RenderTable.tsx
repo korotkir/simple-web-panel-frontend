@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Loader from '../../UI/Loader/Loader'
 import ModalWindow from '../../components/ModalWindow/ModalWindow'
+import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 
 const options: MUIDataTableOptions = {
   filterType: 'checkbox',
@@ -72,11 +73,7 @@ function RenderTable(props:any) {
       <div className={styles.TemplateHeader}>
       <div className={styles.Top}>
           <h1 className={styles.PageTitle}>{tableName}</h1>
-          <button 
-            className={styles.SmallButton}
-            onClick={showModal}>
-              Добавить запись
-          </button>
+          <SmallButton onClick={showModal}>Создать запись</SmallButton>
       </div>
           <PageInformation records={data.length} categories={0} />
         </div>  

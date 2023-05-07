@@ -1,0 +1,26 @@
+.SmallButton {
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
+  height: 30px;
+  background-color: #357ebd;
+  color: white;
+  border: none;
+}
+
+.SmallButton:hover {
+  background-color: #2567a1;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.SmallButton:active {
+  background-color: #1a578d;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.SmallButton:disabled {
+  background-color: gray;
+}
+/*# sourceMappingURL=SmallButton.module.css.map */

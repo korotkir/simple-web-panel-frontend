@@ -1,0 +1,17 @@
+@mixin buttons
+  background-color: #357ebd
+  color: white
+  border: none
+  &:hover
+    background-color: #2567a1
+    transition: all .3s
+  &:active
+    background-color: #1a578d
+    transition: all .3s
+  &:disabled
+    background-color: gray
+
+.SmallButton
+  align-self: end
+  height: 30px
+  @include buttons

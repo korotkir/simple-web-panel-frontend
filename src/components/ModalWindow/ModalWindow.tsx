@@ -1,4 +1,7 @@
 import Modal from 'react-modal'
+import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
+import BigButton from '../../UI/Buttons/BigButton/BigButton';
+import styles from './styles/ModalWindow.module.css'
 
 export default function ModalWindow(props:any) {
   const customStyles = {
@@ -12,57 +15,24 @@ export default function ModalWindow(props:any) {
     },
   };
 
-
   return (
     <Modal
       isOpen={props.open}
       //onAfterOpen={afterOpenModal}
       style={customStyles}
-      contentLabel="Example Modal"
     >
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <div className={styles.Header}>
         <h2>Создать запись</h2>
-        <button 
-          style={{
-            backgroundColor: '#357ebd', 
-            color: 'white', 
-            border: 'none',
-            width: '20px',
-            height: '20px',
-          }} 
-          onClick={props.closeModal}>X</button>
+        <SmallButton onClick={props.closeModal} width={"30px"}>X</SmallButton>
       </div>
-      <form style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-      <label>
-        <span style={{marginRight: '100px'}}>ФИО:</span>
-        <textarea 
-          //className={styles.Input}  
-          name='name' 
-        />
-      </label>
-      <label>
-        <span style={{marginRight: '100px'}}>Пол:</span>
-        <textarea 
-          //className={styles.Input}  
-          name='name'
-        />
-      </label>
-      <label>
-        <span style={{marginRight: '70px'}}>Возраст:</span>
-        <textarea 
-          //className={styles.Input}  
-          name='name'
-        />
-      </label>
-      <button 
-          style={{
-            backgroundColor: '#357ebd', 
-            color: 'white', 
-            border: 'none',
-            width: '100px',
-            height: '50px',
-          }} 
-          onClick={props.closeModal}>Создать</button>
+      <form className={styles.Form}>
+     
+        <label>
+          <span className={styles.LabelSpan}>ФИО:</span>
+          <textarea name='name' />
+        </label>
+      
+      <BigButton>Создать</BigButton>
       </form>
     </Modal>
   )

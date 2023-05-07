@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,OAAO,CAAC;EACN,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,aAAa;CAAG;;AAEnC,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,WAAW,EAAE,MAAM;CAAG;;AAExB,AAAA,UAAU,CAAC;EACT,YAAY,EAAE,KAAK;CAAG",
+    "sources": [
+        "ModalWindow.module.sass"
+    ],
+    "names": [],
+    "file": "ModalWindow.module.css"
+}
