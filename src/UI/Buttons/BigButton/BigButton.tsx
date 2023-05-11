@@ -6,6 +6,6 @@ export default function BigButton(props:any) {
       className={styles.BigButton}
       disabled={props.disabled || false}
       type={props.type}
-    >Создать страницу</button>
+    >Создать</button>
   )
 }

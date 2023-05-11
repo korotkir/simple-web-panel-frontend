@@ -15,7 +15,6 @@ interface MenuElement {
 function Sidebar() {
   const pages: MenuElement[] = [
     {title: 'Главная', icon: 'home', link: '/'},
-    //{title: 'Новости', icon: 'document', link: '/news'},
     {title: 'Настройки', icon: 'settings', link: '/settings'},
     {title: 'Новая категория', icon: 'add', link: '/new'},
   ]
@@ -42,16 +41,9 @@ function Sidebar() {
   return (
     <div className={styles.Sidebar}>
       <div className={styles.Logo}>LOGO</div>
-      
       <div className={styles.Nav}>
         <NavList pages={menuElements}/>
       </div>
-
-        {/* <div className={styles.SignOut}>
-            <LogOutOutline width="24px" height="24px" color="black" />
-            <span className={styles.NavTitle}>Sign out</span>
-        </div> */}
-      
     </div>
   )
 }

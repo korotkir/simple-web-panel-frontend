@@ -41,7 +41,6 @@ function RenderTable(props:any) {
   let [isModal, setModal] = useState(false)
 
   const [formData, setFormData] = useState({})
-  const [textArea, setTextArea] = useState({})
   
   useEffect(() => {
     axios.post(
@@ -81,9 +80,14 @@ function RenderTable(props:any) {
     setModal(false)
   }
 
-  const addRecordToDb = (event: React.FormEvent<HTMLFormElement>) => {
+  // Обработчики формы создания записи
+  const handleChangeForm = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({...prev, field1: event.target.value}))
+  }
+
+  const handleSubmitRecordToDB = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    
+    console.log('Отправка формы на сервер: ', FormData)
   }
 
   const DataTable = () => (
@@ -124,12 +128,16 @@ function RenderTable(props:any) {
                   <span className={styles.LabelSpan}>
                     <b>{key + 1}. {el}</b>
                   </span>
-                  <textarea name={el} value={textArea[`field${key + 1}` as keyof FormValues]} />
+                  <textarea 
+                    name={`field${key+ 1}`}
+                    // value={formData[`field${key + 1}` as keyof formData]}
+                    onChange={handleChangeForm} 
+                  />
                 </label>
               )
             })
           }
-        <BigButton type="submit" onClick={addRecordToDb}>Создать</BigButton>
+        <BigButton type="submit" onClick={handleSubmitRecordToDB}>Создать</BigButton>
         </form>
       </ModalWindow>
     </div>
