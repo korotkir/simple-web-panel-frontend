@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/simple-web-panel-frontend/static/css/main.a2fa6dec.css",
+    "main.js": "/simple-web-panel-frontend/static/js/main.7450c459.js",
+    "static/js/787.0c65874a.chunk.js": "/simple-web-panel-frontend/static/js/787.0c65874a.chunk.js",
+    "static/media/Roboto-Regular.ttf": "/simple-web-panel-frontend/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/Roboto-Bold.ttf": "/simple-web-panel-frontend/static/media/Roboto-Bold.f80816a5455d171f948d.ttf",
+    "static/media/user1.png": "/simple-web-panel-frontend/static/media/user1.c2bbb50e9fd16413bcfa.png",
+    "static/media/user2.png": "/simple-web-panel-frontend/static/media/user2.3367a5803b5305c7de85.png",
+    "static/media/default_avatar.png": "/simple-web-panel-frontend/static/media/default_avatar.ba3c8b8690cc08fc54d2.png",
+    "index.html": "/simple-web-panel-frontend/index.html",
+    "static/media/pen.svg": "/simple-web-panel-frontend/static/media/pen.20f3feded1044c2e11b37868bba185ec.svg",
+    "main.a2fa6dec.css.map": "/simple-web-panel-frontend/static/css/main.a2fa6dec.css.map",
+    "main.7450c459.js.map": "/simple-web-panel-frontend/static/js/main.7450c459.js.map",
+    "787.0c65874a.chunk.js.map": "/simple-web-panel-frontend/static/js/787.0c65874a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a2fa6dec.css",
+    "static/js/main.7450c459.js"
+  ]
+}
