@@ -93,11 +93,7 @@ app.post('/addCollection', urlencodedParser, (req, res, next) => {
   const timestamp = new Date().getTime()
   const randomID = timestamp + random
   const clientData = req.body
-
   const codeName = clientData.transliterationName !== '' ? clientData.transliterationName : 'collection' + randomID
-
-  console.log('Добавлена коллекция: ', codeName)
-  
   const description = clientData.desc
   const columnsCount = Object.keys(clientData).length - 3
   const columnsNames = []
@@ -105,7 +101,6 @@ app.post('/addCollection', urlencodedParser, (req, res, next) => {
                           .keys(clientData)
                           .filter(el => el.indexOf('field') !== -1)
                           .forEach(key => columnsNames.push(clientData[key].name))
-
   const table = {
     tableName: clientData.name,
     codeName,
@@ -119,22 +114,55 @@ app.post('/addCollection', urlencodedParser, (req, res, next) => {
     table['field' + i] = ''
   }
 
-  console.log(table)
-
   // Создаем новую коллекцию
-  db.createCollection(codeName, (err, collection) => {
-    if (err) {
-      console.error('Ошибка создания коллекции: ', err)
-      return
-    } 
-  })
-
-  db.collection(codeName).insertOne(table, (err, res) => {
-    if (err) {
-      console.log('Ошибка при добавлении записи в коллекцию: ', err)
+  const createCollection = async () => {
+    try {
+      await db.createCollection(codeName)
+      await db.collection(codeName).insertOne(table)
+      res.status(200).json(codeName)
+      console.log('Создана коллекция ', codeName)
+    } catch (err) {
+        console.log('Ошибка при создании коллекции')
+        res.status(500).json(err)
     }
-  })
+  }
+
+  createCollection()
+  
 })
     
+// Добавление записи в коллекцию
+app.post('/newRecord', urlencodedParser, (req, res, next) => {
+  if (!req.body) return res.sendStatus(400)
+
+  const name = req.body.codeName
+  const record = req.body
+
+  // Проверяем если в коллекции одна запись, то сначала удаляем ее (!)
 
 
+  // Создаем новую запись
+  const createRecord = async () => {
+    try {
+      const countRecords = await db.collection(name).countDocuments({})
+
+      if(countRecords === 1) {
+        const checkFirstField = await db.collection(name).findOne()
+        
+        if(checkFirstField['field1'] === '') {
+          await db.collection(name).deleteMany({})
+        }
+      }
+
+      await db.collection(name).insertOne(record)
+      res.status(200).json(name)
+      console.log(`В коллекцию ${name} добавлена новая запись`)
+    } catch (err) {
+        console.log('Ошибка при создании коллекции')
+        res.status(500).json(err)
+    }
+  }
+
+  createRecord()
+  
+})
