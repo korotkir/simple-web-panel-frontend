@@ -127,10 +127,13 @@ function AddCategory() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    const apiuUrl = process.env.REACT_APP_API_URL
+    const apiPort = process.env.REACT_APP_API_PORT
+
     const cyrillicToTranslit = new (CyrillicToTranslit as any)();
     
     axios.post(
-      'http://80.87.110.126:3000/addCollection', 
+      `${apiuUrl}:${apiPort}/addCollection`, 
       {...formData, transliterationName: cyrillicToTranslit.transform(formData.name, '_').toLowerCase()},
       {headers: {'Content-Type': 'application/json'}}
     )

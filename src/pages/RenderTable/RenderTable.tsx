@@ -56,6 +56,7 @@ function RenderTable(props:any) {
   let [emptyTable, setEmptyTable] = useState('')
   let [isModal, setModal] = useState(false)
   let [status, setStatus] = useState(0)
+  let [tableDesc, setTableDesc] = useState<string>('')
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState<FormValues>({
@@ -69,14 +70,18 @@ function RenderTable(props:any) {
   })
   
   useEffect(() => {
+    const apiuUrl = process.env.REACT_APP_API_URL
+    const apiPort = process.env.REACT_APP_API_PORT
+
     axios.post(
-      'http://80.87.110.126:3000/renderTable', 
+      `${apiuUrl}:${apiPort}/renderTable`, 
       {collection: props.collection},
       {headers: {'Content-Type': 'application/json'}}
     )
       .then((res) => {
         setLoading(true)
         setTableName(res.data[0].tableName)
+        setTableDesc(res.data[0].description)
         setColumns(res.data[0].columnsNames)
         setEmptyTable(res.data[0].field1)
         setFormData((prev) => ({
@@ -114,10 +119,11 @@ function RenderTable(props:any) {
   const handleSubmitRecordToDB = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const codeName = formData.codeName
-    console.log('Коллекция ' + codeName + ' Отправка формы на сервер: ', formData)
+    const apiUrl = process.env.REACT_APP_API_URL
+    const apiPort = process.env.REACT_APP_API_PORT
     
     axios.post(
-      'http://80.87.110.126:3000/newRecord', 
+      `${apiUrl}:${apiPort}/newRecord`, 
       formData,
       {headers: {'Content-Type': 'application/json'}}
     )
@@ -149,7 +155,7 @@ function RenderTable(props:any) {
           <h1 className={styles.PageTitle}>{tableName}</h1>
           <SmallButton onClick={showModal}>Создать запись</SmallButton>
       </div>
-          <PageInformation records={data.length} categories={0} />
+          <PageInformation records={data.length} description={tableDesc} />
         </div>  
         <div className={styles.Table}>
           <MUIDataTable
@@ -169,28 +175,32 @@ function RenderTable(props:any) {
         open={isModal} 
       >
         <div className={styles.Header}>
-          <h2>Создать запись</h2>
-          <SmallButton onClick={closeModal} width={"30px"}>X</SmallButton>
-        </div>
-        <form className={styles.Form} onSubmit={handleSubmitRecordToDB}>
-          {
-            columns.map((el:any, key:any) => {
-              return (
-                <label key={key}>
-                  <span className={styles.LabelSpan}>
-                    <b>{key + 1}. {el}</b>
-                  </span>
-                  <textarea 
-                    name={`field${key + 1}`}
-                    value={formData[`field${key + 1}` as keyof FormValues]}
-                    onChange={handleChangeForm} 
-                  />
-                </label>
-              )
-            })
-          }
-        <BigButton type="submit">Создать</BigButton>
-        </form>
+            <h2>Создать запись</h2>
+            <SmallButton onClick={closeModal} width={"30px"}>X</SmallButton>
+          </div>
+          
+          <form className={styles.Form} onSubmit={handleSubmitRecordToDB}>
+            {
+              columns.map((el:any, key:any) => {
+                return (
+                  <label key={key}>
+                    <span className={styles.LabelSpan}>
+                      <b>{key + 1}. {el}</b>
+                    </span>
+                    <textarea 
+                      name={`field${key + 1}`}
+                      value={formData[`field${key + 1}` as keyof FormValues]}
+                      onChange={handleChangeForm} 
+                    />
+                  </label>
+                )
+              })
+            }
+            <div className={styles.submitButton}>
+            <BigButton type="submit">Создать</BigButton>
+          </div>
+          </form>
+          
       </ModalWindow>
     </div>
   )

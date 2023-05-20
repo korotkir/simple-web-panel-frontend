@@ -5,7 +5,7 @@ import styles from './styles/ModalWindow.module.css'
 export default function ModalWindow(props:any) {
   const customStyles = {
     content: {
-      top: '40%',
+      top: '50%',
       left: '60%',
       right: 'auto',
       bottom: 'auto',

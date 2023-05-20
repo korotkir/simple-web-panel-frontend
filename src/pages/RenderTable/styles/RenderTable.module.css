@@ -45,6 +45,15 @@
   background-color: gray;
 }
 
+.submitButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .Header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -52,22 +61,22 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .Form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 350px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.LabelSpan {
-  margin-right: 100px;
+  -webkit-box-align: space-between;
+      -ms-flex-align: space-between;
+          align-items: space-between;
+  max-height: 70vh;
+  overflow-y: scroll;
 }
 /*# sourceMappingURL=RenderTable.module.css.map */

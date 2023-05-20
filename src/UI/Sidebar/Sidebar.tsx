@@ -24,7 +24,12 @@ function Sidebar() {
   const categoryList = useSelector((state: any) => state.transfer.categoryList)
 
   useEffect(() => {
-    axios.get('http://80.87.110.126:3000/collectionList')
+    const apiUrl = process.env.REACT_APP_API_URL
+    const apiPort = process.env.REACT_APP_API_PORT
+
+    console.log(`${apiUrl}:${apiPort}/collectionList`)
+
+    axios.get(`${apiUrl}:${apiPort}/collectionList`)
     .then((res) => {
       const loadData: MenuElement[] = res.data.map((el: any, index: number, arr: any) => {
         const keys:any = Object.keys(el)
