@@ -19,7 +19,7 @@ const options: MUIDataTableOptions = {
   tableBodyHeight: '55vh',
   textLabels: {
     body: {
-      noMatch: "Таблица пуста. Создайте новую запись для начала работы :)",
+      noMatch: "Таблица пуста. Создайте новую запись для начала работы.",
       toolTip: "Сортировка",
       columnHeaderTooltip: column => `Sort for ${column.label}`
     },

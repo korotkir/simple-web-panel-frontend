@@ -50,7 +50,7 @@ function Sidebar() {
 
   return (
     <div className={styles.Sidebar}>
-      <div className={styles.Logo}>LOGO</div>
+      <div className={styles.Logo}>SWP</div>
       <div className={styles.Nav}>
         <NavList pages={linksList}/>
       </div>
