@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,mBAAmB,CAAC;EAClB,OAAO,EAAE,MAAM;EACf,KAAK,EAAE,GAAG;CAAG;;AAEf,AAAA,mBAAmB,CAAC,CAAC,CAAC;EACpB,OAAO,EAAE,MAAM;EACf,SAAS,EAAE,IAAI;CAAG;;AAEpB,AAAA,KAAK,CAAC;EACJ,WAAW,EAAE,IAAI;CAAG",
+    "sources": [
+        "ApiAbout.module.sass"
+    ],
+    "names": [],
+    "file": "ApiAbout.module.css"
+}

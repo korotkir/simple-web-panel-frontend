@@ -17,6 +17,7 @@
     "gh-pages": "^5.0.0",
     "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
+    "react-code-blocks": "^0.0.9-0",
     "react-dom": "^18.2.0",
     "react-edit-text": "^5.1.0",
     "react-ionicons": "^4.2.0",

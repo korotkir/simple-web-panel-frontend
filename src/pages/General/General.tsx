@@ -6,6 +6,7 @@ import Pen from './image/pen.svg'
 import User1 from './image/user1.png'
 import User2 from './image/user2.png'
 import UserCard from '../../UI/UserCard/UserCard';
+import ApiAbout from '../../components/ApiAbout/ApiAbout';
 
 function General() {
   return (
@@ -23,14 +24,8 @@ function General() {
                 showEditButton/>
             </div>
         </div>
-        <div className={styles.Users}>
-          <div className={styles.UsersTitle}>Workspace users</div>
-          <div className={styles.UsersCards}>
-            <UserCard username='Иван Иванов' employers='Депутат' avatar={User1}/>
-            <UserCard username='Ксения Петрова' employers='Маркетолог' avatar={User2}/>
-          </div>
-        </div>
-        <div className={styles.Settings}></div>
+        
+        <ApiAbout />
       </div>
     </div>
   )
