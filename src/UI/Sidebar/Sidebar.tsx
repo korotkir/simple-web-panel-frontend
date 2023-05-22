@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { LogOutOutline } from 'react-ionicons'
 import axios from 'axios';
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { addMenuElements } from '../../reducers/componentTransferReducer';
 
 interface MenuElement {
   title: string,
@@ -13,15 +15,17 @@ interface MenuElement {
 }
 
 function Sidebar() {
-  const pages: MenuElement[] = [
-    {title: 'Главная', icon: 'home', link: '/'},
-    {title: 'Настройки', icon: 'settings', link: '/settings'},
-    {title: 'Новая категория', icon: 'add', link: '/new'},
-  ]
-
-  const [menuElements, setMenuElements] = useState<MenuElement[]>([])
-
+  const dispatch = useDispatch()
   const categoryList = useSelector((state: any) => state.transfer.categoryList)
+  const linksList = useSelector((state: any) => state.transfer.menuElements)
+  
+  const pages: MenuElement[] = [
+    {title: 'Главная', icon: 'home', link: '/simple-web-panel-frontend/main'},
+    {title: 'Настройки', icon: 'settings', link: '/simple-web-panel-frontend/settings'},
+    {title: 'Новая категория', icon: 'add', link: '/simple-web-panel-frontend/new'},
+  ]
+  // redux
+  // const [menuElements, setMenuElements] = useState<MenuElement[]>([])
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL
@@ -35,10 +39,11 @@ function Sidebar() {
         const keys:any = Object.keys(el)
         const icon = 'document'
         const link = el[keys]
-        return {title: el[keys], icon, link: `/${keys[0]}`} 
+        return {title: el[keys], icon, link: `/simple-web-panel-frontend/${keys[0]}`} 
       })
-
-      setMenuElements(() => [...pages, ...loadData])
+      // redux
+      dispatch(addMenuElements([...pages, ...loadData]))
+      //setMenuElements(() => [...pages, ...loadData])
     })
     .catch(err => console.log(err))
   }, [categoryList])
@@ -47,7 +52,7 @@ function Sidebar() {
     <div className={styles.Sidebar}>
       <div className={styles.Logo}>LOGO</div>
       <div className={styles.Nav}>
-        <NavList pages={menuElements}/>
+        <NavList pages={linksList}/>
       </div>
     </div>
   )

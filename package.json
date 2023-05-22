@@ -1,6 +1,6 @@
 {
   "name": "simple-web-panel",
-  "homepage": "https://korotkir.github.io/simple-web-panel-frontend",
+  "homepage": "https://korotkir.github.io/simple-web-panel-frontend/main",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

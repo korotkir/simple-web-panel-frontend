@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './Styles/main/Main.css';
@@ -16,12 +16,11 @@ function App() {
       <div className="container" style={{display: 'flex', flex: '1 5',}}>
         <Sidebar />
         <Routes>
-          <Route path="/" element={<General />} />
-          {/* <Route path="news" element={<News />} /> */}
-          <Route path="posts" element={<Posts />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="new" element={<AddCategory />} />
-          <Route path="*" element={<Template />} />
+          <Route path="/simple-web-panel-frontend/main" element={<General />} />
+          <Route path="/simple-web-panel-frontend/posts" element={<Posts />} />
+          <Route path="/simple-web-panel-frontend/settings" element={<Settings />} />
+          <Route path="/simple-web-panel-frontend/new" element={<AddCategory />} />
+          <Route path="/simple-web-panel-frontend/*" element={<Template />} />
         </Routes>
         </div>
     </BrowserRouter>

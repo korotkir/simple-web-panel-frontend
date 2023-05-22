@@ -1,0 +1,30 @@
+.Container {
+  width: 100%;
+  height: 100vh;
+  max-height: 100%;
+  overflow-y: hidden;
+  margin-left: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Container p {
+  font-size: 26px;
+}
+
+.Container h1 {
+  font-size: 88px;
+  line-height: 150px;
+}
+/*# sourceMappingURL=NotFound.module.css.map */
