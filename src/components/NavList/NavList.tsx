@@ -27,6 +27,7 @@ export default function NavList(props: {pages: Array<any>}) {
               <li key={key}>
                 <NavLink 
                   to={el.link}
+                  style={el.title === 'Главная' || el.title === 'Новая категория' ? {marginLeft: '-20px'} : {}}
                   className={({isActive}) => isActive ? styles.NavItemActive : styles.NavItem}
                   children={({isActive}) => {
                     return (

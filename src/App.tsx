@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/simple-web-panel-frontend/main" element={<General />} />
           <Route path="/simple-web-panel-frontend/posts" element={<Posts />} />
-          <Route path="/simple-web-panel-frontend/settings" element={<Settings />} />
+          {/* <Route path="/simple-web-panel-frontend/settings" element={<Settings />} /> */}
           <Route path="/simple-web-panel-frontend/new" element={<AddCategory />} />
           <Route path="/simple-web-panel-frontend/*" element={<Template />} />
         </Routes>

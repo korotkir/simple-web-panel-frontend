@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 import BigButton from '../../UI/Buttons/BigButton/BigButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCategoryElement } from '../../reducers/componentTransferReducer';
 
 interface Field {
@@ -35,6 +35,7 @@ function AddCategory() {
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const linksList = useSelector((state: any) => state.transfer.menuElements).map((el:any) => el.link)
 
   const fieldTypeOptions = [
     {value: 'text', label: 'Текст'},
@@ -131,10 +132,16 @@ function AddCategory() {
     const apiPort = process.env.REACT_APP_API_PORT
 
     const cyrillicToTranslit = new (CyrillicToTranslit as any)();
+    const transliterationName = cyrillicToTranslit.transform(formData.name, '_').toLowerCase()
     
+    if (linksList.includes(`/simple-web-panel-frontend/${transliterationName}`)) {
+      alert('Категория с таким именем уже существует!')
+      return
+    }
+
     axios.post(
       `${apiuUrl}:${apiPort}/addCollection`, 
-      {...formData, transliterationName: cyrillicToTranslit.transform(formData.name, '_').toLowerCase()},
+      {...formData, transliterationName},
       {headers: {'Content-Type': 'application/json'}}
     )
       .then((res) => {
