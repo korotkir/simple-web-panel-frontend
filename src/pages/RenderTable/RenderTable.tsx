@@ -10,28 +10,6 @@ import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 import BigButton from '../../UI/Buttons/BigButton/BigButton';
 import { useNavigate } from 'react-router-dom';
 
-const options: MUIDataTableOptions = {
-  filterType: 'checkbox',
-  elevation: 0,
-  download: false,
-  print: false,
-  viewColumns: false,
-  tableBodyHeight: '55vh',
-  textLabels: {
-    body: {
-      noMatch: "Таблица пуста. Создайте новую запись для начала работы.",
-      toolTip: "Сортировка",
-      columnHeaderTooltip: column => `Sort for ${column.label}`
-    },
-    pagination: {
-      next: "Следующая страница",
-      previous: "Предыдущая страница",
-      rowsPerPage: "Показывать по:",
-      displayRows: "из",
-    },
-  }
-};
-
 interface FieldData {
   name: string,
   type: string
@@ -47,6 +25,10 @@ interface FormValues {
   field1: FieldData | any,
 }
 
+interface Data {
+  "_id": string
+}
+
 function RenderTable(props:any) {
   const [loading, setLoading] = useState(true)
   let [columns, setColumns] = useState<any>([])
@@ -58,6 +40,44 @@ function RenderTable(props:any) {
   let [status, setStatus] = useState(0)
   let [tableDesc, setTableDesc] = useState<string>('')
   const navigate = useNavigate()
+
+  const options: MUIDataTableOptions = {
+    filterType: 'checkbox',
+    elevation: 0,
+    download: false,
+    print: false,
+    viewColumns: false,
+    tableBodyHeight: '55vh',
+    onRowsDelete: onRowsDelete,
+    textLabels: {
+      body: {
+        noMatch: "Таблица пуста. Создайте новую запись для начала работы.",
+        toolTip: "Сортировка",
+        columnHeaderTooltip: column => `Sort for ${column.label}`
+      },
+      pagination: {
+        next: "Следующая страница",
+        previous: "Предыдущая страница",
+        rowsPerPage: "Показывать по:",
+        displayRows: "из",
+      },
+    }
+  };
+
+  function onRowsDelete(rowsDeleted:any) {
+    const deletedIds = rowsDeleted.data.map((row:any) => row.dataIndex);
+    console.log("Удаленные идентификаторы:", deletedIds);
+
+    // deletedIds.forEach((deletedIndex: number) => {
+    //   const deletedRecord = data[deletedIndex];
+    //   const deletedRecordId = deletedRecord._id;
+    //   console.log("Идентификатор удаленной записи:", deletedRecordId);
+  
+    //   // Здесь вы можете выполнить запрос на удаление записи из коллекции MongoDB,
+    //   // используя полученный идентификатор deletedRecordId
+      
+    // });
+  }
 
   const [formData, setFormData] = useState<FormValues>({
     tableName: '',
