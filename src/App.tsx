@@ -12,7 +12,7 @@ import Template from './components/Template/Template';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/simple-web-panel-frontend'>
       <div className="container" style={{display: 'flex', flex: '1 5',}}>
         <Sidebar />
         <Routes>
