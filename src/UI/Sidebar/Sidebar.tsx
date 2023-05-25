@@ -36,7 +36,7 @@ function Sidebar() {
         const keys:any = Object.keys(el)
         const icon = 'document'
         const link = el[keys]
-        return {title: el[keys], icon, link: `/simple-web-panel-frontend/${keys[0]}`} 
+        return {title: el[keys], icon, link: `/${keys[0]}`} 
       })
       // redux
       dispatch(addMenuElements([...pages, ...loadData]))
