@@ -16,10 +16,10 @@ function App() {
       <div className="container" style={{display: 'flex', flex: '1 5',}}>
         <Sidebar />
         <Routes>
-        <Route path="/simple-web-panel-frontend" element={<Navigate replace to="/simple-web-panel-frontend/main" />} />
-          <Route path="/simple-web-panel-frontend/main" element={<General />} />
-          <Route path="/simple-web-panel-frontend/posts" element={<Posts />} />
-          <Route path="/simple-web-panel-frontend/new" element={<AddCategory />} />
+        <Route path="/" element={<Navigate replace to="/main" />} />
+          <Route path="/main" element={<General />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/new" element={<AddCategory />} />
           <Route path="/*" element={<Template />} />
         </Routes>
         </div>

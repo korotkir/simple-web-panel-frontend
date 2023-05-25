@@ -20,12 +20,9 @@ function Sidebar() {
   const linksList = useSelector((state: any) => state.transfer.menuElements)
   
   const pages: MenuElement[] = [
-    {title: 'Главная', icon: 'home', link: '/simple-web-panel-frontend/main'},
-    // {title: 'Настройки', icon: 'settings', link: '/simple-web-panel-frontend/settings'},
-    {title: 'Новая категория', icon: 'add', link: '/simple-web-panel-frontend/new'},
+    {title: 'Главная', icon: 'home', link: '/main'},
+    {title: 'Новая категория', icon: 'add', link: '/new'},
   ]
-  // redux
-  // const [menuElements, setMenuElements] = useState<MenuElement[]>([])
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL

@@ -39,7 +39,6 @@ function RenderTable(props:any) {
   let [isModal, setModal] = useState(false)
   let [status, setStatus] = useState(0)
   let [tableDesc, setTableDesc] = useState<string>('')
-  const navigate = useNavigate()
 
   const options: MUIDataTableOptions = {
     filterType: 'checkbox',

@@ -149,7 +149,7 @@ function AddCategory() {
         // и редиректим
         console.log(res.data)
         dispatch(addCategoryElement(res.data))
-        navigate(`/simple-web-panel-frontend/${res.data}`)
+        navigate(`/${res.data}`)
       })
       .catch((err) => {
         // Если ошибка отрисовываем заглушку (500) 
