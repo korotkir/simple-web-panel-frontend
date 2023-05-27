@@ -128,13 +128,17 @@ function AddCategory() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    console.log('linksList: ', linksList)
+
     const apiuUrl = process.env.REACT_APP_API_URL
     const apiPort = process.env.REACT_APP_API_PORT
 
     const cyrillicToTranslit = new (CyrillicToTranslit as any)();
     const transliterationName = cyrillicToTranslit.transform(formData.name, '_').toLowerCase()
     
-    if (linksList.includes(`/simple-web-panel-frontend/${transliterationName}`)) {
+    console.log('transliteraionName', transliterationName)
+
+    if (linksList.includes(`/${transliterationName}`)) {
       alert('Категория с таким именем уже существует!')
       return
     }

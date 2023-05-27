@@ -23,11 +23,12 @@ export default function NavList(props: {pages: Array<any>}) {
       <ul className={styles.NavList}>
         {
           props.pages.map((el,key) => {
+            const mainElements = el.title === 'Главная' || el.title === 'Новая категория'
             return (
               <li key={key}>
                 <NavLink 
                   to={el.link}
-                  style={el.title === 'Главная' || el.title === 'Новая категория' ? {marginLeft: '-20px'} : {}}
+                  style={ mainElements ? {marginLeft: '-20px'} : {}}
                   className={({isActive}) => isActive ? styles.NavItemActive : styles.NavItem}
                   children={({isActive}) => {
                     return (

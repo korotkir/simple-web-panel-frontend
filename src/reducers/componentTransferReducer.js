@@ -5,6 +5,7 @@ const componentTransferSlice = createSlice({
   initialState: {
     categoryList: [],
     menuElements: [],
+    deletedCategories: [],
   },
   reducers: {
     addCategoryElement: (state, action) => {
@@ -12,10 +13,13 @@ const componentTransferSlice = createSlice({
     },
     addMenuElements: (state, action) => {
       state.menuElements = action.payload
-    }
+    },
+    deletedCategories: (state, action) => {
+      state.deletedCategories.push(action.payload)
+    },
   },
 });
 
-export const { addCategoryElement, addMenuElements } = componentTransferSlice.actions;
+export const { addCategoryElement, addMenuElements, deletedCategories } = componentTransferSlice.actions;
 
 export default componentTransferSlice.reducer;

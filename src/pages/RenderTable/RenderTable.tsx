@@ -9,6 +9,10 @@ import ModalWindow from '../../components/ModalWindow/ModalWindow'
 import SmallButton from '../../UI/Buttons/SmallButton/SmallButton';
 import BigButton from '../../UI/Buttons/BigButton/BigButton';
 import { useNavigate } from 'react-router-dom';
+import { TrashOutline } from 'react-ionicons'
+import { useDispatch } from 'react-redux';
+import { deletedCategories } from '../../reducers/componentTransferReducer';
+
 
 interface FieldData {
   name: string,
@@ -26,19 +30,28 @@ interface FormValues {
 }
 
 interface Data {
-  "_id": string
+  "_id": string,
+  "field1": string
 }
 
 function RenderTable(props:any) {
+  const apiUrl = process.env.REACT_APP_API_URL
+  const apiPort = process.env.REACT_APP_API_PORT
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [loading, setLoading] = useState(true)
   let [columns, setColumns] = useState<any>([])
-  let [data, setData] = useState([])
+  let [data, setData] = useState<Data[]>([])
   let [tableName, setTableName] = useState('Без названия')
   let [renderData, setRenderData] = useState([])
   let [emptyTable, setEmptyTable] = useState('')
   let [isModal, setModal] = useState(false)
   let [status, setStatus] = useState(0)
   let [tableDesc, setTableDesc] = useState<string>('')
+  let [codeName, setCodeName] = useState<string>('')
+  
+  
 
   const options: MUIDataTableOptions = {
     filterType: 'checkbox',
@@ -64,18 +77,23 @@ function RenderTable(props:any) {
   };
 
   function onRowsDelete(rowsDeleted:any) {
-    const deletedIds = rowsDeleted.data.map((row:any) => row.dataIndex);
+    const deletedIds = rowsDeleted.data.map((row:any) => row.dataIndex + 1);
     console.log("Удаленные идентификаторы:", deletedIds);
 
-    // deletedIds.forEach((deletedIndex: number) => {
-    //   const deletedRecord = data[deletedIndex];
-    //   const deletedRecordId = deletedRecord._id;
-    //   console.log("Идентификатор удаленной записи:", deletedRecordId);
-  
-    //   // Здесь вы можете выполнить запрос на удаление записи из коллекции MongoDB,
-    //   // используя полученный идентификатор deletedRecordId
+    deletedIds.forEach((deletedIndex: number) => {
+      const deletedRecord = data[deletedIndex];
+      const deletedRecordID = deletedRecord._id;
       
-    // });
+      axios.post(
+        `${apiUrl}:${apiPort}/deleteRecord`, 
+        {tableName: codeName, recordID: deletedRecordID},
+        {headers: {'Content-Type': 'application/json'}}
+      )
+        .then((res) => {})
+        .catch((err) => {console.error(err)})
+      // Здесь вы можете выполнить запрос на удаление записи из коллекции MongoDB,
+      // используя полученный идентификатор deletedRecordId
+    });
   }
 
   const [formData, setFormData] = useState<FormValues>({
@@ -89,16 +107,16 @@ function RenderTable(props:any) {
   })
   
   useEffect(() => {
-    const apiuUrl = process.env.REACT_APP_API_URL
-    const apiPort = process.env.REACT_APP_API_PORT
 
     axios.post(
-      `${apiuUrl}:${apiPort}/renderTable`, 
+      `${apiUrl}:${apiPort}/renderTable`, 
       {collection: props.collection},
       {headers: {'Content-Type': 'application/json'}}
     )
       .then((res) => {
+        console.log(res.data[0])
         setLoading(true)
+        setCodeName(res.data[0].codeName)
         setTableName(res.data[0].tableName)
         setTableDesc(res.data[0].description)
         setColumns(res.data[0].columnsNames)
@@ -118,8 +136,8 @@ function RenderTable(props:any) {
       .catch((err) => {console.error(err)})
 
   }, [props.collection, status])
-
-  const render = emptyTable !== '' ? data.map(obj => {return Object.values(obj).filter((value, index) => index > 6 && index < 13)}) : []
+  console.log(data)
+  const render = data.filter((el, i) => el.field1 !== '').map(obj => {return Object.values(obj).filter((value, index) => index > 6 && index < 13)})
 
   const showModal = () => {
     setModal(true)
@@ -138,8 +156,6 @@ function RenderTable(props:any) {
   const handleSubmitRecordToDB = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const codeName = formData.codeName
-    const apiUrl = process.env.REACT_APP_API_URL
-    const apiPort = process.env.REACT_APP_API_PORT
     
     axios.post(
       `${apiUrl}:${apiPort}/newRecord`, 
@@ -167,14 +183,39 @@ function RenderTable(props:any) {
   
   }
 
+  const handleRemoveCollection = () => {
+    console.log(codeName)
+
+    axios.post(
+      `${apiUrl}:${apiPort}/removeCollection`, 
+      {codeName},
+      {headers: {'Content-Type': 'application/json'}}
+    )
+      .then((res) => {
+        dispatch(deletedCategories(codeName))
+        navigate('/main')
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
   const DataTable = () => (
     <div className={styles.Categories}>
       <div className={styles.TemplateHeader}>
       <div className={styles.Top}>
-          <h1 className={styles.PageTitle}>{tableName}</h1>
+          <div className={styles.PagesTitleBlock}>
+            <h1 className={styles.PageTitle}>
+              {tableName}
+            </h1>
+            <a className={styles.Trash} onClick={handleRemoveCollection}>
+              <TrashOutline color={'gray'} width={'20px'} />
+            </a>
+          </div>
+          
           <SmallButton onClick={showModal}>Создать запись</SmallButton>
       </div>
-          <PageInformation records={data.length} description={tableDesc} />
+          <PageInformation records={data.length - 1} description={tableDesc} />
         </div>  
         <div className={styles.Table}>
           <MUIDataTable

@@ -17,8 +17,11 @@ interface MenuElement {
 function Sidebar() {
   const dispatch = useDispatch()
   const categoryList = useSelector((state: any) => state.transfer.categoryList)
+  const deletedCategories = useSelector((state: any) => state.transfer.deletedCategories)
+  // перписать на useState
   const linksList = useSelector((state: any) => state.transfer.menuElements)
   
+
   const pages: MenuElement[] = [
     {title: 'Главная', icon: 'home', link: '/main'},
     {title: 'Новая категория', icon: 'add', link: '/new'},
@@ -32,6 +35,8 @@ function Sidebar() {
 
     axios.get(`${apiUrl}:${apiPort}/collectionList`)
     .then((res) => {
+      console.log(res)
+      console.log(categoryList)
       const loadData: MenuElement[] = res.data.map((el: any, index: number, arr: any) => {
         const keys:any = Object.keys(el)
         const icon = 'document'
@@ -43,7 +48,7 @@ function Sidebar() {
       //setMenuElements(() => [...pages, ...loadData])
     })
     .catch(err => console.log(err))
-  }, [categoryList])
+  }, [categoryList, deletedCategories])
 
   return (
     <div className={styles.Sidebar}>
