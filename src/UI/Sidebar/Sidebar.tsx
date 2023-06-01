@@ -31,21 +31,15 @@ function Sidebar() {
     const apiUrl = process.env.REACT_APP_API_URL
     const apiPort = process.env.REACT_APP_API_PORT
 
-    console.log(`${apiUrl}:${apiPort}/collectionList`)
-
     axios.get(`${apiUrl}:${apiPort}/collectionList`)
     .then((res) => {
-      console.log(res)
-      console.log(categoryList)
       const loadData: MenuElement[] = res.data.map((el: any, index: number, arr: any) => {
         const keys:any = Object.keys(el)
         const icon = 'document'
         const link = el[keys]
         return {title: el[keys], icon, link: `/${keys[0]}`} 
       })
-      // redux
       dispatch(addMenuElements([...pages, ...loadData]))
-      //setMenuElements(() => [...pages, ...loadData])
     })
     .catch(err => console.log(err))
   }, [categoryList, deletedCategories])
