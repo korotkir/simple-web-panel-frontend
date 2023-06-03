@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/simple-web-panel-frontend/static/css/main.dd6f880c.css",
-    "main.js": "/simple-web-panel-frontend/static/js/main.b6a54ea2.js",
+    "main.css": "/simple-web-panel-frontend/static/css/main.b89e198a.css",
+    "main.js": "/simple-web-panel-frontend/static/js/main.04e8259c.js",
     "react-syntax-highlighter/refractor-core-import.js": "/simple-web-panel-frontend/static/js/react-syntax-highlighter/refractor-core-import.276467df.chunk.js",
     "react-syntax-highlighter_languages_refractor_abap.js": "/simple-web-panel-frontend/static/js/react-syntax-highlighter_languages_refractor_abap.3081b3d2.chunk.js",
     "react-syntax-highlighter_languages_refractor_actionscript.js": "/simple-web-panel-frontend/static/js/react-syntax-highlighter_languages_refractor_actionscript.de9769ee.chunk.js",
@@ -160,8 +160,8 @@
     "static/media/default_avatar.png": "/simple-web-panel-frontend/static/media/default_avatar.ba3c8b8690cc08fc54d2.png",
     "index.html": "/simple-web-panel-frontend/index.html",
     "static/media/pen.svg": "/simple-web-panel-frontend/static/media/pen.20f3feded1044c2e11b37868bba185ec.svg",
-    "main.dd6f880c.css.map": "/simple-web-panel-frontend/static/css/main.dd6f880c.css.map",
-    "main.b6a54ea2.js.map": "/simple-web-panel-frontend/static/js/main.b6a54ea2.js.map",
+    "main.b89e198a.css.map": "/simple-web-panel-frontend/static/css/main.b89e198a.css.map",
+    "main.04e8259c.js.map": "/simple-web-panel-frontend/static/js/main.04e8259c.js.map",
     "refractor-core-import.276467df.chunk.js.map": "/simple-web-panel-frontend/static/js/react-syntax-highlighter/refractor-core-import.276467df.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_abap.3081b3d2.chunk.js.map": "/simple-web-panel-frontend/static/js/react-syntax-highlighter_languages_refractor_abap.3081b3d2.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_actionscript.de9769ee.chunk.js.map": "/simple-web-panel-frontend/static/js/react-syntax-highlighter_languages_refractor_actionscript.de9769ee.chunk.js.map",
@@ -317,7 +317,7 @@
     "787.0c65874a.chunk.js.map": "/simple-web-panel-frontend/static/js/787.0c65874a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd6f880c.css",
-    "static/js/main.b6a54ea2.js"
+    "static/css/main.b89e198a.css",
+    "static/js/main.04e8259c.js"
   ]
 }
