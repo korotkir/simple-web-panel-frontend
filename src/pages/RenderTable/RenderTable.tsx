@@ -115,7 +115,7 @@ function RenderTable(props:any) {
     )
       .then((res) => {
         console.log(res.data[0])
-        setLoading(true)
+        setLoading(false)
         setCodeName(res.data[0].codeName)
         setTableName(res.data[0].tableName)
         setTableDesc(res.data[0].description)
@@ -131,7 +131,7 @@ function RenderTable(props:any) {
         }))
         setData(res.data)
         console.log(res.data)
-        setLoading(false)
+        //setLoading(false)
       })
       .catch((err) => {console.error(err)})
 

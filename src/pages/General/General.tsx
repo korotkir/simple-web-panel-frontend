@@ -3,8 +3,6 @@ import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 import defaultAvatar from './image/default_avatar.png'
 import Pen from './image/pen.svg'
-import User1 from './image/user1.png'
-import User2 from './image/user2.png'
 import UserCard from '../../UI/UserCard/UserCard';
 import ApiAbout from '../../components/ApiAbout/ApiAbout';
 
