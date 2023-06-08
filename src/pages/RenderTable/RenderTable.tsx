@@ -50,6 +50,7 @@ function RenderTable(props:any) {
   let [status, setStatus] = useState(0)
   let [tableDesc, setTableDesc] = useState<string>('')
   let [codeName, setCodeName] = useState<string>('')
+  const [deleteCollectionWarning, setDeleteCollectionWarning] = useState<boolean>(false)
   
   
 
@@ -200,6 +201,18 @@ function RenderTable(props:any) {
       })
   }
 
+  const DeleteCollectionModal = () => {
+    return (
+      <ModalWindow open={deleteCollectionWarning}>
+        <h2>Удалить коллекцию "{tableName}" ?</h2>
+        <div className={styles.ButtonBlock}>
+          <SmallButton onClick={() => setDeleteCollectionWarning(false)}>Отмена</SmallButton>
+          <SmallButton onClick={handleRemoveCollection}>Удалить</SmallButton>
+        </div>
+      </ModalWindow>
+    )
+  }
+
   const DataTable = () => (
     <div className={styles.Categories}>
       <div className={styles.TemplateHeader}>
@@ -208,8 +221,8 @@ function RenderTable(props:any) {
             <h1 className={styles.PageTitle}>
               {tableName}
             </h1>
-            <a className={styles.Trash} onClick={handleRemoveCollection}>
-              <TrashOutline color={'gray'} width={'20px'} />
+            <a className={styles.Trash} onClick={() => setDeleteCollectionWarning(true)}>
+              <TrashOutline  color="gray" width={'20px'} />
             </a>
           </div>
           
@@ -262,6 +275,7 @@ function RenderTable(props:any) {
           </form>
           
       </ModalWindow>
+      <DeleteCollectionModal />
     </div>
   )
 }
