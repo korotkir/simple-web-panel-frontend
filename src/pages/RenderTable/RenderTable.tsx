@@ -74,6 +74,11 @@ function RenderTable(props:any) {
         rowsPerPage: "Показывать по:",
         displayRows: "из",
       },
+      selectedRows: {
+        text: "выделена (-ы)",
+        delete: "Удалить",
+        deleteAria: "Удалить выделенные строки",
+      },
     }
   };
 
