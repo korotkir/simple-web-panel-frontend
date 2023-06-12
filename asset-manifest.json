@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/simple-web-panel-frontend/static/css/main.52cdc240.css",
-    "main.js": "/simple-web-panel-frontend/static/js/main.7513c049.js",
+    "main.js": "/simple-web-panel-frontend/static/js/main.f0f27d94.js",
     "react-syntax-highlighter/refractor-core-import.js": "/simple-web-panel-frontend/static/js/react-syntax-highlighter/refractor-core-import.276467df.chunk.js",
     "react-syntax-highlighter_languages_refractor_abap.js": "/simple-web-panel-frontend/static/js/react-syntax-highlighter_languages_refractor_abap.3081b3d2.chunk.js",
     "react-syntax-highlighter_languages_refractor_actionscript.js": "/simple-web-panel-frontend/static/js/react-syntax-highlighter_languages_refractor_actionscript.de9769ee.chunk.js",
@@ -161,7 +161,7 @@
     "index.html": "/simple-web-panel-frontend/index.html",
     "static/media/pen.svg": "/simple-web-panel-frontend/static/media/pen.20f3feded1044c2e11b37868bba185ec.svg",
     "main.52cdc240.css.map": "/simple-web-panel-frontend/static/css/main.52cdc240.css.map",
-    "main.7513c049.js.map": "/simple-web-panel-frontend/static/js/main.7513c049.js.map",
+    "main.f0f27d94.js.map": "/simple-web-panel-frontend/static/js/main.f0f27d94.js.map",
     "refractor-core-import.276467df.chunk.js.map": "/simple-web-panel-frontend/static/js/react-syntax-highlighter/refractor-core-import.276467df.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_abap.3081b3d2.chunk.js.map": "/simple-web-panel-frontend/static/js/react-syntax-highlighter_languages_refractor_abap.3081b3d2.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_actionscript.de9769ee.chunk.js.map": "/simple-web-panel-frontend/static/js/react-syntax-highlighter_languages_refractor_actionscript.de9769ee.chunk.js.map",
@@ -318,6 +318,6 @@
   },
   "entrypoints": [
     "static/css/main.52cdc240.css",
-    "static/js/main.7513c049.js"
+    "static/js/main.f0f27d94.js"
   ]
 }
