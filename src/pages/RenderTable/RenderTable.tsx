@@ -20,6 +20,7 @@ interface FieldData {
 }
 
 interface FormValues {
+  date: any,
   tableName: string,
   codeName: string,
   description: string,
@@ -101,6 +102,7 @@ function RenderTable(props:any) {
   }
 
   const [formData, setFormData] = useState<FormValues>({
+    date: undefined,
     tableName: '',
     codeName: '',
     description: '',
@@ -141,7 +143,7 @@ function RenderTable(props:any) {
 
   }, [props.collection, status])
   console.log(data)
-  const render = data.filter((el, i) => el.field1 !== '').map(obj => {return Object.values(obj).filter((value, index) => index > 6 && index < 13)})
+  const render = data.filter((el, i) => el.field1 !== '').map(obj => {return Object.values(obj).filter((value, index) => index > 7 && index < 14)})
 
   const showModal = () => {
     setModal(true)
@@ -163,13 +165,13 @@ function RenderTable(props:any) {
     
     axios.post(
       `${apiUrl}:${apiPort}/newRecord`, 
-      formData,
+      {...formData, date: new Date()},
       {headers: {'Content-Type': 'application/json'}}
     )
       .then((res) => {
         setStatus((prev) => prev + 1)
         setFormData({
-          date: new Date(),
+          date: undefined,
           tableName: '',
           codeName: '',
           description: '',
