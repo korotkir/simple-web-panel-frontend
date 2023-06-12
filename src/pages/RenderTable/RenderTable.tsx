@@ -52,8 +52,6 @@ function RenderTable(props:any) {
   let [codeName, setCodeName] = useState<string>('')
   const [deleteCollectionWarning, setDeleteCollectionWarning] = useState<boolean>(false)
   
-  
-
   const options: MUIDataTableOptions = {
     filterType: 'checkbox',
     elevation: 0,
@@ -171,6 +169,7 @@ function RenderTable(props:any) {
       .then((res) => {
         setStatus((prev) => prev + 1)
         setFormData({
+          date: new Date(),
           tableName: '',
           codeName: '',
           description: '',
